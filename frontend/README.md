@@ -33,15 +33,15 @@ Usuario: Representa a los usuarios que pueden gestionar proveedores y productos.
 Proveedor: Cada proveedor puede tener múltiples productos asociados.
 Producto: Cada producto está vinculado a un único proveedor.
 Diagrama de Relaciones
-# Usuario
+Usuario
    |
    | (gestiona)
    |
-# Proveedor
+Proveedor
    |
    | (tiene)
    |
-# Producto
+Producto
 Implementación de Relaciones en el Código
 Backend
 1. Modelo de Proveedor
