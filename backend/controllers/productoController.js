@@ -1,9 +1,8 @@
-const Producto = require('../models/Producto');
+const productoService = require('../services/productoService');
 
 exports.createProducto = async (req, res) => {
     try {
-        const producto = new Producto(req.body);
-        await producto.save();
+        const producto = await productoService.createProducto(req.body);
         res.status(201).json(producto);
     } catch (error) {
         res.status(400).json({ message: error.message });
@@ -12,7 +11,7 @@ exports.createProducto = async (req, res) => {
 
 exports.getProductos = async (req, res) => {
     try {
-        const productos = await Producto.find().populate('proveedor');
+        const productos = await productoService.getProductos();
         res.json(productos);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -21,10 +20,7 @@ exports.getProductos = async (req, res) => {
 
 exports.updateProducto = async (req, res) => {
     try {
-        const producto = await Producto.findByIdAndUpdate(req.params.id, req.body, { new: true });
-        if (!producto) {
-            return res.status(404).json({ message: 'Producto no encontrado' });
-        }
+        const producto = await productoService.updateProducto(req.params.id, req.body);
         res.json(producto);
     } catch (error) {
         res.status(400).json({ message: error.message });
@@ -33,10 +29,7 @@ exports.updateProducto = async (req, res) => {
 
 exports.deleteProducto = async (req, res) => {
     try {
-        const producto = await Producto.findByIdAndDelete(req.params.id);
-        if (!producto) {
-            return res.status(404).json({ message: 'Producto no encontrado' });
-        }
+        await productoService.deleteProducto(req.params.id);
         res.status(204).send();
     } catch (error) {
         res.status(500).json({ message: error.message });

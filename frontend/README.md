@@ -7,6 +7,18 @@ Currently, two official plugins are available:
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
+# Proyecto de Gestión de Proveedores y Productos
+
+## Descripción
+Este proyecto es una aplicación web que permite gestionar usuarios, proveedores y productos. La relación entre estos modelos es de uno a muchos, donde un proveedor puede tener múltiples productos asociados, y cada producto está vinculado a un único proveedor.
+
+## Estructura del Proyecto
+- **Backend**: Implementado en Node.js con Express y MongoDB.
+- **Frontend**: Implementado en React.
+
+## Modelos
+
+### Modelo de Producto
 
 # Instrucciones para ejecutar el proyecto
 
@@ -55,7 +67,9 @@ const proveedorSchema = new mongoose.Schema({
 
 const Proveedor = mongoose.model('Proveedor', proveedorSchema);
 module.exports = Proveedor;
+
 Explicación: En el modelo de Proveedor, se define un campo productos que es un array de IDs de productos. Esto establece la relación de uno a muchos, donde un proveedor puede tener múltiples productos.
+
 2. Modelo de Producto
 const mongoose = require('mongoose');
 

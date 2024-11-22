@@ -1,58 +1,39 @@
-const Proveedor = require('../models/Proveedor');
+const proveedorService = require('../services/proveedorService');
 
 // Crear un nuevo proveedor
 exports.createProveedor = async (req, res) => {
     try {
-        const proveedor = new Proveedor(req.body); // Crear una nueva instancia de Proveedor con los datos del cuerpo de la solicitud
-        await proveedor.save(); // Guardar el proveedor en la base de datos
-        res.status(201).json(proveedor); // Devolver el proveedor creado con un estado 201
+        const proveedor = await proveedorService.createProveedor(req.body);
+        res.status(201).json(proveedor);
     } catch (error) {
-        res.status(400).json({ message: error.message }); // Manejo de errores, devolver un estado 400
+        res.status(400).json({ message: error.message });
     }
 };
 
 // Obtener todos los proveedores
 exports.getProveedores = async (req, res) => {
     try {
-        const proveedores = await Proveedor.find(); // Obtener todos los proveedores de la base de datos
-        res.json(proveedores); // Devolver la lista de proveedores
+        const proveedores = await proveedorService.getProveedores();
+        res.json(proveedores);
     } catch (error) {
-        res.status(500).json({ message: error.message }); // Manejo de errores, devolver un estado 500
+        res.status(500).json({ message: error.message });
     }
 };
 
 // Actualizar un proveedor existente
 exports.updateProveedor = async (req, res) => {
     try {
-        const proveedor = await Proveedor.findByIdAndUpdate(req.params.id, req.body, { new: true }); // Actualizar el proveedor
-        if (!proveedor) {
-            return res.status(404).json({ message: 'Proveedor no encontrado' }); // Manejo de errores si no se encuentra el proveedor
-        }
-        res.json(proveedor); // Devolver el proveedor actualizado
+        const proveedor = await proveedorService.updateProveedor(req.params.id, req.body);
+        res.json(proveedor);
     } catch (error) {
-        res.status(400).json({ message: error.message }); // Manejo de errores
+        res.status(400).json({ message: error.message });
     }
 };
 
 // Eliminar un proveedor
 exports.deleteProveedor = async (req, res) => {
     try {
-        const proveedor = await Proveedor.findByIdAndDelete(req.params.id); // Eliminar el proveedor
-        if (!proveedor) {
-            return res.status(404).json({ message: 'Proveedor no encontrado' }); // Manejo de errores si no se encuentra el proveedor
-        }
-        res.status(204).send(); // Devolver un estado 204 si se elimina correctamente
-    } catch (error) {
-        res.status(500).json({ message: error.message }); // Manejo de errores
-    }
-};
-
-exports.deleteProducto = async (req, res) => {
-    try {
-        const producto = await Producto.findByIdAndDelete(req.params.id);
-        if (!producto) {
-            return res.status(404).json({ message: 'Producto no encontrado' });
-        }
+        await proveedorService.deleteProveedor(req.params.id);
         res.status(204).send();
     } catch (error) {
         res.status(500).json({ message: error.message });

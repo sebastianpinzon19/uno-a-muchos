@@ -17,13 +17,33 @@ const router = express.Router();
  *             properties:
  *               nombre:
  *                 type: string
+ *                 example: "Producto A"
  *               precio:
  *                 type: number
+ *                 example: 150.75
  *               proveedor:
  *                 type: string
+ *                 example: "60d5f484f1a2c8b1f8e4e1a2"  // ID del proveedor
  *     responses:
  *       201:
  *         description: Producto creado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 _id:
+ *                   type: string
+ *                   example: "60d5f484f1a2c8b1f8e4e1a3"
+ *                 nombre:
+ *                   type: string
+ *                   example: "Producto A"
+ *                 precio:
+ *                   type: number
+ *                   example: 150.75
+ *                 proveedor:
+ *                   type: string
+ *                   example: "60d5f484f1a2c8b1f8e4e1a2"
  *       400:
  *         description: Error en la creación
  */
@@ -38,6 +58,25 @@ router.post('/', createProducto);
  *     responses:
  *       200:
  *         description: Lista de productos
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   _id:
+ *                     type: string
+ *                     example: "60d5f484f1a2c8b1f8e4e1a3"
+ *                   nombre:
+ *                     type: string
+ *                     example: "Producto A"
+ *                   precio:
+ *                     type: number
+ *                     example: 150.75
+ *                   proveedor:
+ *                     type: string
+ *                     example: "60d5f484f1a2c8b1f8e4e1a2"
  *       500:
  *         description: Error al obtener productos
  */
@@ -65,37 +104,36 @@ router.get('/', getProductos);
  *             properties:
  *               nombre:
  *                 type: string
+ *                 example: "Producto Actualizado"
  *               precio:
  *                 type: number
+ *                 example: 200.00
  *               proveedor:
  *                 type: string
+ *                 example: "60d5f484f1a2c8b1f8e4e1a2"
  *     responses:
  *       200:
  *         description: Producto actualizado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 _id:
+ *                   type: string
+ *                   example: "60d5f484f1a2c8b1f8e4e1a3"
+ *                 nombre:
+ *                   type: string
+ *                   example: "Producto Actualizado"
+ *                 precio:
+ *                   type: number
+ *                   example: 200.00
+ *                 proveedor:
+ *                   type: string
+ *                   example: "60d5f484f1a2c8b1f8e4e1a2"
  *       400:
  *         description: Error en la actualización
  */
 router.put('/:id', updateProducto);
-
-/**
- * @swagger
- * /api/productos/{id}:
- *   delete:
- *     summary: Eliminar un producto
- *     tags: [Productos]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         description: ID del producto
- *         schema:
- *           type: string
- *     responses:
- *       204:
- *         description: Producto eliminado
- *       500:
- *         description: Error al eliminar producto
- */
-router.delete('/:id', deleteProducto);
 
 module.exports = router;
